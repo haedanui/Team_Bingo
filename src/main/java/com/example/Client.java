@@ -80,6 +80,8 @@ public class Client extends Thread {
                         send("잘못된 위치이거나 이미 사용중인 곳입니다.");
                         continue;
                     }
+                    
+                    sendAll(board.toString());
 
                     if (board.checkBingo()) {
                         send("Bingo!!");
@@ -92,7 +94,6 @@ public class Client extends Thread {
                         disconnect();
                     }
 
-                    sendAll(board.toString());
                     clients.get(board.getTurn() % 2).send("내 차례입니다.");
 
                 } catch (NumberFormatException e) {
