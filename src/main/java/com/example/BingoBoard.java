@@ -17,15 +17,16 @@ public class BingoBoard {
     public BingoBoard() {
         this(DEFAULT_SIZE);
     }
-    
+
     public BingoBoard(int boardSize) {
-        if (boardSize <= 0) throw new IllegalArgumentException();
-        
+        if (boardSize <= 0)
+            throw new IllegalArgumentException();
+
         board = new String[boardSize][boardSize];
         initBoard();
     }
 
-    public int getSize() { // 
+    public int getSize() { //
         assert (board.length == board[0].length);
 
         return board.length;
@@ -38,7 +39,7 @@ public class BingoBoard {
         int range = getSize() * getSize(); // range : 1 ~ 25.
         int rand;
         for (int i = 0; i < range; ++i) {
-            while (set.contains(rand = (int)((Math.random() * range) + 1))) {
+            while (set.contains(rand = (int) ((Math.random() * range) + 1))) {
                 // 값이 중복이면 아닌 값을 뽑을때 까지 반복
             }
 
@@ -53,8 +54,9 @@ public class BingoBoard {
         }
     }
 
-    public boolean canPlace(int index) {
-        if (index < 0 || index >= getSize() * getSize()) return false;
+    private boolean canPlace(int index) {
+        if (index < 0 || index >= getSize() * getSize())
+            return false;
 
         int i = index / getSize();
         int j = index % getSize();
@@ -64,23 +66,33 @@ public class BingoBoard {
             Integer.parseInt(board[i][j]);
 
             return true;
-            
+
         } catch (NumberFormatException e) {
             return false;
         }
     }
 
-    public synchronized boolean tryPlace(final int index, final String mark) {
-        if (!canPlace(index)) return false;
+    public synchronized boolean tryPlace(final String num, final String mark) {
+        boolean isPlace = false;
 
-        board[index / getSize()][index % getSize()] = mark;
-        turn++;
+        for (int index = 0; index < getSize() * getSize(); ++index) {
+            int i = index / getSize();
+            int j = index % getSize();
 
-        return true;
+            if (board[i][j].equals(num) && canPlace(index)) {
+                board[i][j] = mark;
+                isPlace = true;
+                turn++;
+            }
+        }
+
+        return isPlace;
     }
 
     public boolean isDone() {
-        for (int i = 0; i < getSize() * getSize(); ++i) if (canPlace(i)) return false;
+        for (int i = 0; i < getSize() * getSize(); ++i)
+            if (canPlace(i))
+                return false;
 
         return true;
     }
@@ -89,27 +101,31 @@ public class BingoBoard {
         int len = getSize();
 
         // 가로 빙고 확인
-        for (int i = 0 ; i < len; i++) {
+        for (int i = 0; i < len; i++) {
             int count = 0;
 
             String temp = board[i][0];
-            for(int j = 0; j < len ; j++) {
-                if (board[i][j].equals(temp)) count++;
+            for (int j = 0; j < len; j++) {
+                if (board[i][j].equals(temp))
+                    count++;
             }
 
-            if (count == len) return true;
+            if (count == len)
+                return true;
         }
 
         // 세로 빙고 확인
-        for (int i = 0 ; i < len; i++) {
+        for (int i = 0; i < len; i++) {
             int count = 0;
 
             String temp = board[0][i];
-            for(int j = 0; j < len ; j++) {
-                if (board[j][i].equals(temp)) count++;
+            for (int j = 0; j < len; j++) {
+                if (board[j][i].equals(temp))
+                    count++;
             }
 
-            if (count == len) return true;
+            if (count == len)
+                return true;
         }
 
         // 11시에서 5시로 가는 대각선
@@ -121,7 +137,8 @@ public class BingoBoard {
                 count++;
             }
 
-            if (count == len) return true;
+            if (count == len)
+                return true;
         }
 
         // 1시에서 7시로 가는 대각선
@@ -133,12 +150,13 @@ public class BingoBoard {
                 count++;
             }
 
-            if (count == len) return true;
+            if (count == len)
+                return true;
         }
 
         return false;
     }
-    
+
     @Override
     public String toString() {
         SB.setLength(0); // init.
@@ -147,7 +165,8 @@ public class BingoBoard {
         for (int i = 0; i < range; ++i) {
             SB.append(String.format("[%2s]", board[i / getSize()][i % getSize()]));
 
-            if ((i + 1) % getSize() == 0) SB.append(System.lineSeparator());
+            if ((i + 1) % getSize() == 0)
+                SB.append(System.lineSeparator());
         }
 
         SB.append("========================================");
@@ -155,14 +174,4 @@ public class BingoBoard {
 
         return SB.toString();
     }
-
-    public static void main(String[] args) {
-        BingoBoard bingoBoard = new BingoBoard();
-        System.out.println(bingoBoard.toString());
-
-        bingoBoard.tryPlace(15, "x");
-
-        System.out.println(bingoBoard.toString());
-    }
 }
-
