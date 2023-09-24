@@ -83,7 +83,7 @@ public class BingoBoard {
         }
         count = 0;
         //1시에서 7시로 가는 대각선
-        for(int i = 0, j = 4; i <boardsize; i++, j--){
+        for(int i = 0, j = (boardsize-1); i <boardsize; i++, j--){
             if(board[i][j].charAt(0)=='['){
                 count++;
             }
