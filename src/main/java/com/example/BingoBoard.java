@@ -44,6 +44,7 @@ public class BingoBoard {
     }
 
     //TODO 빙고의 여부확인을 체크하는 함수 추가
+    
     public static boolean bingoCheck(String figure){
         //우선 가로 빙고 확인
         for(int i = 0 ; i < boardsize; i++){
@@ -70,9 +71,9 @@ public class BingoBoard {
                 return true;
             }
         }
+        int count = 0;
         //11시에서 5시로 가는 대각선
         for(int i = 0,j = 0; i<boardsize; i++, j++){
-            int count = 0;
             if(board[i][j].charAt(0)=='['){
                 count++;
             }
@@ -80,9 +81,9 @@ public class BingoBoard {
                 return true;
             }
         }
+        count = 0;
         //1시에서 7시로 가는 대각선
         for(int i = 0, j = 4; i <boardsize; i++, j--){
-            int count = 0;
             if(board[i][j].charAt(0)=='['){
                 count++;
             }
