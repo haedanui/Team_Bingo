@@ -128,14 +128,10 @@ public class BingoBoard {
                 return true;
         }
 
-        int count = 0;
         // 11시에서 5시로 가는 대각선
+        int count = 0;
+        String temp = board[0][0];
         for (int i = 0, j = 0; i < len; i++, j++) {
-
-            String temp = board[i][j];
-            if (!temp.equals("O") || !temp.equals("X")) {
-                continue;
-            }
             if (board[i][j].equals(temp)) {
                 count++;
             }
@@ -144,14 +140,10 @@ public class BingoBoard {
                 return true;
         }
 
-        count = 0;
         // 1시에서 7시로 가는 대각선
+        count = 0;
+        temp = board[0][len - 1];
         for (int i = 0, j = len - 1; i < len; i++, j--) {
-
-            String temp = board[i][j];
-            if (!temp.equals("O") || !temp.equals("X")) {
-                continue;
-            }
             if (board[i][j].equals(temp)) {
                 count++;
             }
