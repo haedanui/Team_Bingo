@@ -99,7 +99,7 @@ public class BingoBoard {
         int range = boardsize * boardsize;
 
         for (int i = 0; i < range ; ++i) {
-            SB.append(String.format("%5s", Integer.parseInt(board[i / boardsize][i % boardsize])));
+            SB.append(String.format("%5s", board[i / boardsize][i % boardsize]));
             if ((i + 1) % boardsize == 0)
                 SB.append('\n');
         }
