@@ -13,7 +13,7 @@ import lombok.Getter;
 @Getter
 public class Client extends Thread {
     public static final List<Client> clients = new ArrayList<>(2);
-    public static BingoBoard board = new BingoBoard(3);
+    public static BingoBoard board = new BingoBoard(5);
 
     private final int n; // TODO 순번을 뜻하는 변수명으로 rename.
     private final Socket socket;
@@ -74,9 +74,9 @@ public class Client extends Thread {
                 }
 
                 try {
-                    int placeIndex = Integer.parseInt(s);
+                    int placeIndex = Integer.parseInt(s); // s가 올바른 숫자인지 확인용
 
-                    if (!board.tryPlace(placeIndex, mark)) {
+                    if (!board.tryPlace(s, mark)) {
                         send("잘못된 위치이거나 이미 사용중인 곳입니다.");
                         continue;
                     }
