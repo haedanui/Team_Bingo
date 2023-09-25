@@ -9,7 +9,6 @@ import java.net.Socket;
 public class BingoClient extends Thread{
     BufferedReader reader;
     BufferedWriter writer;
-    
 
     public BingoClient(BufferedReader reader, BufferedWriter writer){
         this.reader =reader;
